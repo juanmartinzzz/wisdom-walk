@@ -8,10 +8,9 @@ const analyzeModelResults = ({completion}) => {
         paragraphs.push({text: completion.error.message});
 
         return paragraphs;
-    } 
+    }
 
-    // TODO: slipt the message.content into different paragraphs by detecting endlines or other special characters in the response
-    [1].map(item => paragraphs.push({text: completion.choices[0].message.content}));
+    completion.choices[0].message.content.split(/\n+/).map(paragraph => paragraphs.push({text: paragraph}));
 
     return paragraphs;
 }

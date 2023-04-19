@@ -4,6 +4,12 @@ const stepStatuses = {
     showingResults: 'showingResults',
 }
 
+const uiStyles = {
+    cleanCards: 'Clean Cards',
+    floatingWords: 'Floating Words',
+    classicTypewritter: 'Classic Typewritter',
+}
+
 const templateEmptyStep = {
     element: null,
     collapsed: false,
@@ -13,9 +19,7 @@ const templateEmptyStep = {
     },
     results: {
         title: '',
-        paragraphs: [
-            {text: ``,},
-        ]
+        paragraphs: []
     },
     steps: [],
 };

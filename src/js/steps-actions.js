@@ -1,5 +1,24 @@
+const filterSteps = ({step, idToDelete}) => {
+    if(!step.steps || step.steps.lenght === 0) {
+        return;
+    }
+
+    const newSteps = step.steps.filter(childStep => (childStep.id !== idToDelete));
+    newSteps.map(childStep => filterSteps({step: childStep, idToDelete}));
+
+    step.steps = newSteps;
+}
+
+const removeStep = ({step}) => {
+    const idToDelete = step.id;
+
+    state.steps.map(childStep => filterSteps({step: childStep, idToDelete}));
+
+    renderSteps();
+}
+
 const addChildStep = ({step}) => {
-    step.steps.unshift({...templateEmptyStep});
+    step.steps.unshift({...templateEmptyStep, id: `step-${Math.floor(Math.random() * 999999999999999)}`});
 
     renderSteps();
 }
