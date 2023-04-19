@@ -1,0 +1,232 @@
+/* structure */
+.box.center {
+    width: 70%;
+    margin: 0 auto;
+}
+.box.padding {
+    padding: 8px;
+}
+.box.padding.lg {
+    padding: 16px;
+}
+.boxv2.padding-xs {
+    padding: 2px;
+}
+.boxv2.padding-sm {
+    padding: 4px;
+}
+.boxv2.padding-md {
+    padding: 8px;
+}
+.boxv2.padding-lg {
+    padding: 16px;
+}
+.boxv2.padding-xl {
+    padding: 32px;
+}
+.boxv2.percent-padding-xs {
+    margin: 0 5%
+}
+.boxv2.percent-padding-sm {
+    margin: 0 10%
+}
+.boxv2.percent-padding-md {
+    margin: 0 15%
+}
+.boxv2.percent-padding-lg {
+    margin: 0 20%
+}
+.boxv2.percent-padding-xl {
+    margin: 0 25%
+}
+.spacerVertical {
+    height: 32px;
+}
+.spacerVertical.sm {
+    height: 16px;
+}
+.spacerVertical.lg {
+    height: 64px;
+}
+
+/* Collapsable */ 
+.collapsed .toCollapse {
+    display: none;
+}
+
+/* App bar */
+.appbar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 45px;
+    align-items: center;
+    position: fixed;
+    z-index: 999;
+}
+.appbar .iconButton {
+    margin: 0 16px;
+}
+.appbar .iconButton ion-icon {
+    font-size: 32px;
+}
+
+/* Grid */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+}
+.grid.directionColumn {
+    flex-direction: column;
+}
+.grid.justifyLeft {
+    justify-content: left;
+}
+.grid.justifyCenter {
+    justify-content: center;
+}
+.gridv2 {
+    display: grid;
+    gap: 16px;
+}
+.gridv2.row-max-elements-2 {
+    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-columns: repeat(auto-fit, minmax(50%, 1fr)); */
+}
+.gridv2.row-max-elements-3 {
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-columns: repeat(auto-fit, minmax(50%, 1fr)); */
+}
+.gridv2.row-max-elements-4 {
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-template-columns: repeat(auto-fit, minmax(50%, 1fr)); */
+}
+
+/* Card */
+.card {
+    border-radius: 6px;
+}
+.card.medium {
+    max-width: 330px;
+} 
+.card > img:first-child {
+    border-radius: 6px 6px 0 0;
+}
+.card .head,
+.card .content {
+    padding: 16px;
+}
+.card.loading {
+    animation: cardLoading 1s ease-in-out infinite;
+}
+.card.collapsed .head .iconButton.expand,
+.card.expanded .head .iconButton.collapse {
+    display: inherit;
+}
+.card.collapsed .head .iconButton.collapse,
+.card.expanded .head .iconButton.expand {
+    display: none;
+}
+.card .head {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+.card .head .title {
+    display: flex;
+}
+.card .head .iconButton {
+    display: flex;
+}
+.card .head .iconButton ion-icon {
+    font-size: 32px;
+}
+.card .title {
+    display: flex;
+    justify-content: center;
+    font-size: 36px;
+}
+.message {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 4px;
+}
+.message ion-icon {
+    margin-right: 8px;
+    font-size: 32px;
+}
+.message .typography:first-child {
+    margin-top: 0;
+}
+
+/* Buttons */
+.button {
+    padding: 8px 16px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+}
+.button.xs {
+    padding: 0 4px;
+    font-size: 8px;
+}
+.button.sm {
+    padding: 4px 8px;
+    font-size: 10px;
+}
+.iconButton {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 999px;
+}
+
+/* typography */
+.typography {
+    font-size: 14px;
+}
+.typography:not(:first-child) {
+    margin-top: 12px;
+}
+.textAlignCenter {
+    text-align: center;
+}
+.typography.h1 {
+    font-size: 64px;
+}
+.typography.h2 {
+    font-size: 32px;
+}
+.typography.h3 {
+    font-size: 24px;
+    line-height: 24px;
+}
+.typography.h4 {
+    font-size: 18px;
+}
+.typography.h5 {
+    font-size: 14px;
+}
+.typography.h6 {
+    font-size: 12px;
+}
+.typography.caption {
+    margin-top: -8px;
+    font-size: 14px;
+}
+.typography.center {
+    text-align: center;
+}
+.typography.uppercase {
+    text-transform: uppercase;
+}
+
+/* Hidden */
+.hidden {
+    display: none;
+}
