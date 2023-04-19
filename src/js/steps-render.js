@@ -37,11 +37,14 @@ const getResultHeader = ({step}) => {
     const title = createElementWithAttributes({type: 'div', attributes: {class: 'title', innerText: step.prompt.text}});
     const actions = createElementWithAttributes({type: 'div', attributes: {class: 'actions'}});
     const actionExpand = createElementWithAttributes({type: 'div', attributes: {class: 'action'}});
+    const actionRemove = createElementWithAttributes({type: 'div', attributes: {class: 'action'}});
     
     actionExpand.addEventListener('click', () => toggleCollapseStep({step}));
+    actionRemove.addEventListener('click', () => removeStep({step}));
     
     actionExpand.appendChild(getIconSvg({id: 'expandIcon'}));
-    [actionExpand].map(element => actions.appendChild(element));
+    actionRemove.appendChild(getIconSvg({id: 'removeIcon'}));
+    [actionRemove, actionExpand].map(element => actions.appendChild(element));
     [title, actions].map(element => header.appendChild(element));
     
     return header;
@@ -120,10 +123,14 @@ const getSteps = ({steps}) => {
 
 const renderSteps = () => {
     const map = document.getElementById('map');
-
+    
     map.innerHTML = '';
     const steps = getSteps({steps: state.steps});
     steps.map(step => map.appendChild(step));
+
+    // TODO: save steps to the cloud if the User is logged
+    // Only if steps render, save them to local storage
+    storeAndReturn({key: 'steps', value: JSON.stringify(state.steps)});
 
 }
 

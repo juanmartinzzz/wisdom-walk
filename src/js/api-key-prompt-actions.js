@@ -4,7 +4,8 @@ const updateApiKey = ({target}) => {
         return;
     }
 
-    state.apiKey = storeAndReturn({key: 'apiKey', value: target.value});
+    state.config.apiKey = target.value;
+    storeAndReturn({key: 'config', value: JSON.stringify(state.config)});
 
-    console.log({state});
+    renderApiKeyPrompt();
 }
