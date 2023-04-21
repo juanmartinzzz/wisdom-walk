@@ -2,9 +2,24 @@ const getIconSvg = ({id}) => {
     return document.getElementById(id).cloneNode(true);
 }
 
+const getPromptTextarea = ({value}) => {
+    const textarea = createElementWithAttributes({type: 'textarea', attributes: {style: `height: auto;`, innerHTML: value}});
+    // textarea.style.height = `${textarea.scrollHeight}px`;
+
+    textarea.addEventListener("input", () => {
+        textarea.style.height = "auto";
+        textarea.style.height = `${textarea.scrollHeight}px`;
+    });
+
+    // const rows = (textarea.value.split("\n").length < 10) ? textarea.value.split("\n").length : 10;
+    // textarea.setAttribute('rows', rows);
+
+    return textarea;
+}
+
 const getPrompt = ({step}) => {
     const prompt = createElementWithAttributes({type: 'div', attributes: {class: 'prompt'}});
-    const textarea = createElementWithAttributes({type: 'textarea', attributes: {rows: '1', innerHTML: step.prompt.text}});
+    const textarea = getPromptTextarea({value: step.prompt.text})
     const sendIconSvg = getIconSvg({id: 'sendIcon'});
 
     textarea.addEventListener('change', ({target}) => updatePromptText({step, target}));
@@ -55,17 +70,27 @@ const getResultBody = ({step}) => {
 
     step.results.paragraphs.map(paragraph => {
         const paragraphElement = createElementWithAttributes({type: 'div', attributes: {class: 'paragraph', innerText: paragraph.text}});
+
+        body.appendChild(paragraphElement);
+
+        if(step.steps[0] && (!step.steps[0].results.paragraphs || step.steps[0].results.paragraphs.length === 0)) {
+            return;
+        }
+
         const actions = createElementWithAttributes({type: 'div', attributes: {class: 'actions'}});
-        const newStepBasedOnParagraph = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this'}});
+        const newStepBasedOnParagraph = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this paragraph.'}});
         const newStepBasedOnParagraphMainAreas = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Generate a list of the main areas of this subject'}});
         const newStepBasedOnParagraphUserDefined = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this, by writing your own question or prompt'}});
 
-        newStepBasedOnParagraph.addEventListener('click', () => addChildStep({step}));
-        newStepBasedOnParagraphMainAreas.addEventListener('click', () => addChildStep({step}));
+        newStepBasedOnParagraph.addEventListener('click', () => addChildStep({step, promptText: `${paragraph.text} ------- can you expand about this?`}));
+        newStepBasedOnParagraphMainAreas.addEventListener('click', () => addChildStep({step, promptText: `${paragraph.text} ------- using bullet points, can you tell me about the main areas or subdivisions of this topic?`}));
         newStepBasedOnParagraphUserDefined.addEventListener('click', () => addChildStep({step}));
+
+        newStepBasedOnParagraph.appendChild(getIconSvg({id: 'continueIcon'}));
+        newStepBasedOnParagraphMainAreas.appendChild(getIconSvg({id: 'bulletsIcon'}));
+        newStepBasedOnParagraphUserDefined.appendChild(getIconSvg({id: 'messageIcon'}));
         [newStepBasedOnParagraph, newStepBasedOnParagraphMainAreas, newStepBasedOnParagraphUserDefined].map(element => actions.appendChild(element));
         paragraphElement.appendChild(actions);
-        body.appendChild(paragraphElement);
     })
 
     return body;
@@ -77,7 +102,6 @@ const getResultFooter = ({step}) => {
     const action1 = createElementWithAttributes({type: 'div', attributes: {class: 'action', innerText: 'New step'}});
 
     action1.addEventListener('click', () => addChildStep({step}));
-    
     [action1].map(element => actions.appendChild(element));
     footer.appendChild(actions);
 
@@ -86,6 +110,11 @@ const getResultFooter = ({step}) => {
 
 const getStep = ({step}) => {
     const stepElement = createElementWithAttributes({type: 'div', attributes: {class: `step ${step.status} ${(step.collapsed ? 'collapsed' : '')}`}});
+
+    // If this step should be brought into view (i.e. was the last one created)
+    if(step.id === state.ui.stepToFocusId) {
+        state.ui.stepToFocusElement = stepElement;
+    }
     
     // Only add 'prompt' section if step does not have child steps 
     if(!(step.steps && step.steps.length > 0)) {
@@ -121,12 +150,34 @@ const getSteps = ({steps}) => {
     })
 }
 
+const scrollStepIntoView = () => {
+    if(!state.ui.stepToFocusElement) {
+        return;
+    }
+
+    state.ui.stepToFocusElement.scrollIntoView({ behavior: "smooth" });
+}
+
+const setTexareasHeight = () => {
+    const maxHeightInPixels = 80;
+
+    Array.from(document.getElementsByTagName('textarea')).map(textarea => {
+        console.log('test');
+        textarea.style.height = 'auto'; 
+        textarea.style.height = `${(textarea.scrollHeight < maxHeightInPixels) ? textarea.scrollHeight : maxHeightInPixels}px`;
+    });
+}
+
 const renderSteps = () => {
     const map = document.getElementById('map');
     
     map.innerHTML = '';
     const steps = getSteps({steps: state.steps});
     steps.map(step => map.appendChild(step));
+
+    // Operations that need to be done after elements render
+    scrollStepIntoView();
+    setTexareasHeight();
 
     // TODO: save steps to the cloud if the User is logged
     // Only if steps render, save them to local storage

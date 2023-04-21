@@ -11,6 +11,7 @@ const uiStyles = {
 }
 
 const templateEmptyStep = {
+    id: null,
     element: null,
     collapsed: false,
     status: stepStatuses.showOnlyPrompt,

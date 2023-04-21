@@ -18,7 +18,7 @@ const getCompletion = async ({ prompt }) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${state.apiKey}`
+            Authorization: `Bearer ${state.config.apiKey}`
         },
         body: JSON.stringify({
             model: config.model,
