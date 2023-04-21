@@ -101,7 +101,8 @@ a {
 } */
 .lane .search {
     display: flex;
-    padding: 16px 0;
+    /* justify-content: center; */
+    padding: 0 0 16px 0;
 }
 .lane .search > .actions {
     display: flex;
@@ -122,29 +123,45 @@ a {
     flex-direction: column;
     gap: 8px;
 }
-.step.loadingResults .results {
-    animation: loading 2s infinite;
+.step.collapsed {
+    width: inherit;
 }
-.step.showOnlyPrompt .results {
+.step.collapsed .results .header {
+    padding-bottom: 16px;
+}
+.step.collapsed .prompt,
+.step.collapsed .results .body,
+.step.collapsed .results .footer {
     display: none;
 }
-.step .prompt {
-    padding: 8px;
-    gap: 8px;
+.step.loadingResults {
+    animation: loading 2s infinite;
+}
+.step.loadingResults .results .header,
+.step.loadingResults .results .footer {
+    display: none;
+}
+.step.showOnlyPrompt .results .body, 
+.step.showOnlyPrompt .results .footer {
+    display: none;
+}
+.step.showOnlyPrompt .results .prompt {
+    padding: 16px;
+}
+.step .results .prompt {
+    padding: 16px 16px 0 16px;
+    gap: 16px;
     display: flex;
     align-items: center;
-    box-shadow: 
-        0 0 2px rgba(0,0,0, 0.1), 
-        0 0 4px rgba(0,0,0, 0.1), 
-        0 0 6px rgba(0,0,0, 0.1);
     border-radius: 4px;
 }
 .step .prompt textarea {
+    width: 100%;
+    min-height: 1.3em;
+    font-size: 14px;
+    color: rgba(0, 119, 255, 1);
     box-sizing: border-box;
     border: 0;
-    width: 100%;
-    font-size: 12px;
-    min-height: 1.3em;
     outline: none;
 }
 .step .prompt svg {
@@ -161,11 +178,11 @@ a {
     padding: 16px 16px 0 16px;
     display: flex;
     gap: 16px;
-    justify-content: space-between;
+    justify-content: right;
 }
 .step .results .title {
     display: none;
-    font-size: 24px;
+    font-size: 22px;
 }
 .step .results .header > .actions {
     display: flex;
@@ -178,6 +195,8 @@ a {
 }
 .step .results .body .paragraph {
     padding: 4px 0;
+    font-size: 18px;
+    white-space: pre-wrap;
     border-radius: 4px;
 }
 .step .results .body .paragraph > .actions {
@@ -195,13 +214,8 @@ a {
 .step .results .footer > .actions {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    /* border-top: 1px dotted red; */
 }
-.step.collapsed .results .header {
-    padding-bottom: 16px;
-}
-.step.collapsed .prompt,
-.step.collapsed .results .body,
-.step.collapsed .results .footer {
-    display: none;
+.step .results .footer > .actions .action {
+    border-top: 1px solid red;
 }

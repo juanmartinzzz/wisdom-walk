@@ -79,11 +79,11 @@ const getResultBody = ({step}) => {
 
         const actions = createElementWithAttributes({type: 'div', attributes: {class: 'actions'}});
         const newStepBasedOnParagraph = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this paragraph.'}});
-        const newStepBasedOnParagraphMainAreas = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Generate a list of the main areas of this subject'}});
-        const newStepBasedOnParagraphUserDefined = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this, by writing your own question or prompt'}});
+        const newStepBasedOnParagraphMainAreas = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Generate a list of the main areas of this subject.'}});
+        const newStepBasedOnParagraphUserDefined = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this paragraph, by writing your own question or prompt.'}});
 
-        newStepBasedOnParagraph.addEventListener('click', () => addChildStep({step, promptText: `${paragraph.text} ------- can you expand about this?`}));
-        newStepBasedOnParagraphMainAreas.addEventListener('click', () => addChildStep({step, promptText: `${paragraph.text} ------- using bullet points, can you tell me about the main areas or subdivisions of this topic?`}));
+        newStepBasedOnParagraph.addEventListener('click', () => addChildStep({step, promptText: `${paragraph.text} ------- expand about each of the topics in the text`}));
+        newStepBasedOnParagraphMainAreas.addEventListener('click', () => addChildStep({step, promptText: `${paragraph.text} ------- using bullet points, tell me what are the main areas or subdivisions of the topic that the text talks about, and give me information about each one of them`}));
         newStepBasedOnParagraphUserDefined.addEventListener('click', () => addChildStep({step}));
 
         newStepBasedOnParagraph.appendChild(getIconSvg({id: 'continueIcon'}));
@@ -99,10 +99,15 @@ const getResultBody = ({step}) => {
 const getResultFooter = ({step}) => {
     const footer = createElementWithAttributes({type: 'div', attributes: {class: 'footer'}});
     const actions = createElementWithAttributes({type: 'div', attributes: {class: 'actions'}});
-    const action1 = createElementWithAttributes({type: 'div', attributes: {class: 'action', innerText: 'New step'}});
+    const newStepUserDefined = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this topic, by writing your own question or prompt.'}});
+    const newStepSimpleWords = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Simplify the language of this answer.'}});
 
-    action1.addEventListener('click', () => addChildStep({step}));
-    [action1].map(element => actions.appendChild(element));
+    newStepUserDefined.addEventListener('click', () => addChildStep({step}));
+    newStepSimpleWords.addEventListener('click', () => addChildStep({step, promptText: `${step.results.paragraphs.map(p => p.text).join(' ')} ------- can you re-write this idea using simple words, as if you were explaining it to a child?`}));
+
+    newStepUserDefined.appendChild(getIconSvg({id: 'messageIcon'}));
+    newStepSimpleWords.appendChild(getIconSvg({id: 'babyIcon'}));
+    [newStepSimpleWords, newStepUserDefined].map(element => actions.appendChild(element));
     footer.appendChild(actions);
 
     return footer;
@@ -115,15 +120,17 @@ const getStep = ({step}) => {
     if(step.id === state.ui.stepToFocusId) {
         state.ui.stepToFocusElement = stepElement;
     }
-    
-    // Only add 'prompt' section if step does not have child steps 
-    if(!(step.steps && step.steps.length > 0)) {
-        [getPrompt({step})].map(element => stepElement.appendChild(element));
-    }
-    
-    // Build 'results' section
+
+    // Build results section
     const results = createElementWithAttributes({type: 'div', attributes: {class: 'results'}});
-    [getResultHeader({step}), getResultBody({step}), getResultFooter({step})].map(element => results.appendChild(element));
+    
+    [getResultHeader({step})].map(element => results.appendChild(element));
+
+    // Add prompt section if step does not have child steps 
+    if(!(step.steps && step.steps.length > 0)) {
+        [getPrompt({step})].map(element => results.appendChild(element));
+    }
+    [getResultBody({step}), getResultFooter({step})].map(element => results.appendChild(element));
     [results].map(element => stepElement.appendChild(element));
 
     return stepElement;

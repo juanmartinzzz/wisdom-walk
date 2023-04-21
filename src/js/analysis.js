@@ -10,7 +10,10 @@ const analyzeModelResults = ({completion}) => {
         return paragraphs;
     }
 
-    completion.choices[0].message.content.split(/\n+/).map(paragraph => paragraphs.push({text: paragraph}));
+    completion.choices[0].message.content.split(/\n+/).map(paragraph => {
+        const paragraphStartingWhitespacesDoubled = paragraph.replace('  ', '    ');
+        paragraphs.push({text: paragraphStartingWhitespacesDoubled});
+    });
 
     return paragraphs;
 }
