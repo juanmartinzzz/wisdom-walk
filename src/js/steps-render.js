@@ -71,7 +71,6 @@ const getResultBody = ({step}) => {
     step.results.paragraphs.map(paragraph => {
         const paragraphElement = createElementWithAttributes({type: 'div', attributes: {class: 'paragraph', innerText: paragraph.text}});
 
-
         body.appendChild(paragraphElement);
 
         if(step.steps[0] && (!step.steps[0].results.paragraphs || step.steps[0].results.paragraphs.length === 0)) {

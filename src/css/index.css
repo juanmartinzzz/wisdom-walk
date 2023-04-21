@@ -164,6 +164,7 @@ a {
     justify-content: space-between;
 }
 .step .results .title {
+    display: none;
     font-size: 24px;
 }
 .step .results .header > .actions {
