@@ -6,4 +6,8 @@ const state = {
         uiStyle: uiStyles.cleanCards,
     })})),
     steps: JSON.parse(getValueOrDefault({key: 'steps', defaultValue: JSON.stringify([templateEmptyStep])})),
+    ui: {
+        stepToFocusId: null,
+        stepToFocusElement: null,
+    }
 }

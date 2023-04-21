@@ -84,10 +84,10 @@ textarea {
 
 /* actions */
 .actions .action {
-    background-color: rgba(0,0,0, 0.1);
+    /* background-color: rgba(0,0,0, 0.1); */
 }
 .actions .action:hover {
-    background-color: rgba(0,0,0, 0.15);
+    background-color: rgba(0,0,0, 0.1);
 }
 .actions .action:active {
     background-color: rgba(0,0,0, 0.2);

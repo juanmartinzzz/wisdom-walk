@@ -17,8 +17,22 @@ const removeStep = ({step}) => {
     renderSteps();
 }
 
-const addChildStep = ({step}) => {
-    step.steps.unshift({...templateEmptyStep, id: `step-${Math.floor(Math.random() * 999999999999999)}`});
+const addChildStep = ({step, promptText}) => {
+    // Don't add children while first child has no results
+    if(step.steps[0] && (!step.steps[0].results.paragraphs || step.steps[0].results.paragraphs.length === 0)) {
+        return;
+    }
+
+    const newStep = JSON.parse(JSON.stringify(templateEmptyStep));
+    newStep.id = `step-${Math.floor(Math.random() * 999999999999999)}`;
+    state.ui.stepToFocusId = newStep.id;
+    step.steps.unshift(newStep);
+
+    if(promptText) {
+        newStep.prompt.text = promptText;
+
+        generateResults({step: newStep});
+    }
 
     renderSteps();
 }
@@ -31,13 +45,13 @@ const generateResults = async ({step}) => {
     step.results.paragraphs = [];
     step.status = stepStatuses.loadingResults;
     renderSteps();
-    
+
     // Call model API to generate results
     const completion = await getCompletion({prompt: step.prompt.text});
     step.results.paragraphs = analyzeModelResults({completion});
-    
+
     step.status = stepStatuses.showingResults;
-    
+
     renderSteps();
 }
 
