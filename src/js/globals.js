@@ -1,3 +1,7 @@
+const appbarStatuses = {
+    showMainMenu: 'showMainMenu',
+}
+
 const stepStatuses = {
     showOnlyPrompt: 'showOnlyPrompt',
     loadingResults: 'loadingResults',

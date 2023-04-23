@@ -1,3 +1,4 @@
+// TODO: move to generic file, since method is used by all sections
 const getIconSvg = ({id}) => {
     return document.getElementById(id).cloneNode(true);
 }
