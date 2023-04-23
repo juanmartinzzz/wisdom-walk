@@ -162,14 +162,13 @@ const scrollStepIntoView = () => {
         return;
     }
 
-    state.ui.stepToFocusElement.scrollIntoView({ behavior: "smooth" });
+    state.ui.stepToFocusElement.scrollIntoView({block: "end", inline: "nearest", behavior: "smooth"});
 }
 
 const setTexareasHeight = () => {
     const maxHeightInPixels = 80;
 
     Array.from(document.getElementsByTagName('textarea')).map(textarea => {
-        console.log('test');
         textarea.style.height = 'auto'; 
         textarea.style.height = `${(textarea.scrollHeight < maxHeightInPixels) ? textarea.scrollHeight : maxHeightInPixels}px`;
     });
@@ -177,8 +176,8 @@ const setTexareasHeight = () => {
 
 const renderSteps = () => {
     const map = document.getElementById('map');
-    
     map.innerHTML = '';
+    
     const steps = getSteps({steps: state.steps});
     steps.map(step => map.appendChild(step));
 
@@ -188,8 +187,6 @@ const renderSteps = () => {
 
     // TODO: save steps to the cloud if the User is logged
     // Only if steps render, save them to local storage
-    storeAndReturn({key: 'steps', value: JSON.stringify(state.steps)});
+    storeAndReturn({key: state.id, value: JSON.stringify(state.steps)});
 
 }
-
-renderSteps();

@@ -10,6 +10,11 @@ const uiStyles = {
     classicTypewritter: 'Classic Typewritter',
 }
 
+const templateEmptyMapInfo = {
+    id: null,
+    name: null,
+}
+
 const templateEmptyStep = {
     id: null,
     element: null,
