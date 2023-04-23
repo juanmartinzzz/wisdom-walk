@@ -1,11 +1,13 @@
 const renderApiKeyPrompt = () => {
-    document.getElementById('apiKeyPrompt') && document.getElementById('apiKeyPrompt').remove();
+    const apiKeyPrompt = document.getElementById('apiKeyPrompt');
+    apiKeyPrompt.classList.add('hidden');
+    apiKeyPrompt.innerHTML = '';
     
     if(state.config.apiKey) {
         return;
     }
 
-    const prompt = createElementWithAttributes({ type: 'div', attributes: { id: 'apiKeyPrompt' } });
+    apiKeyPrompt.classList.remove('hidden');
     const instructions = createElementWithAttributes({ type: 'div', attributes: { id: 'instructions', innerText: 'Please input your Open AI Api Key'}});
     const link = createElementWithAttributes({ type: 'a', attributes: { href: 'https://www.youtube.com/watch?v=_vEJ07K0VPs', target:'_blank', innerText: 'Here\'s how to get it' } });
     const videoIconSvg = document.getElementById('videoIcon').cloneNode(true);
@@ -15,9 +17,7 @@ const renderApiKeyPrompt = () => {
 
     link.prepend(videoIconSvg);
     instructions.appendChild(link);
-    [instructions, input].map(element => prompt.appendChild(element));
-
-    document.getElementsByTagName('body')[0].prepend(prompt);
+    [instructions, input].map(element => apiKeyPrompt.appendChild(element));
 }
 
 renderApiKeyPrompt();

@@ -17,6 +17,10 @@ const removeStep = ({step}) => {
     renderSteps();
 }
 
+const setStepToFocus = ({step}) => {
+    state.ui.stepToFocusId = step.id;
+}
+
 const addChildStep = ({step, promptText}) => {
     // Don't add children while first child has no results
     if(step.steps[0] && (!step.steps[0].results.paragraphs || step.steps[0].results.paragraphs.length === 0)) {
@@ -25,7 +29,7 @@ const addChildStep = ({step, promptText}) => {
 
     const newStep = JSON.parse(JSON.stringify(templateEmptyStep));
     newStep.id = `step-${Math.floor(Math.random() * 999999999999999)}`;
-    state.ui.stepToFocusId = newStep.id;
+    setStepToFocus({step: newStep})
     step.steps.unshift(newStep);
 
     if(promptText) {
@@ -41,6 +45,9 @@ const generateResults = async ({step}) => {
     if('' === step.prompt.text.trim()) {
         return;
     }
+
+    // Focus on the step where results will be generated
+    setStepToFocus({step})
 
     step.results.paragraphs = [];
     step.status = stepStatuses.loadingResults;
