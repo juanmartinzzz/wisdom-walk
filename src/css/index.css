@@ -57,25 +57,56 @@ a {
         0 0 6px rgba(0,0,0, 0.1);
 }
 
+/* appbar */
+#appbar {
+    width: 100%;
+    min-height: 45px;
+    position: fixed;
+    z-index: 999;
+}
+#appbar .icons {
+    height: 45px;
+    padding: 0 16px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+#appbar .mainMenu {
+    display: none;
+    margin: 0 0 16px 0;
+    padding: 16px;
+    background-color: rgb(255,255,255);
+}
+#appbar.showMainMenu .mainMenu {
+    display: inherit;
+}
+#appbar .mainMenu .fields {
+    display: flex;
+    /* flex-direction: column; */
+    gap: 32px;
+}
+#appbar .mainMenu .fields label {
+    font-family: monospace;
+}
+
 /* work area */
 #workArea {
     display: flex;
-    padding-top: 42px;
+    padding-top: 45px;
 }
 
 /* maps */
 #maps {
-    min-width: 120px;
-    max-width: 120px;
+    min-width: 160px;
+    max-width: 160px;
     height: 100vh;
-    padding: 32px;
+    padding: 16px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 16px;
+    flex-direction: column;
 }
 #maps .map {
-    width: 100%;
+    display: inline-block;
     padding: 4px 8px;
     cursor: pointer;
     text-align: center;
@@ -100,7 +131,7 @@ a {
 
 /* map */
 #map {
-    padding: 32px;
+    padding: 16px;
 }
 /* #map div {
     background-color: rgba(0,0,0, 0.05);

@@ -8,13 +8,10 @@
     <link href="src/css/colour-theme.css" rel="stylesheet">
     <link href="src/common/css/elements.css" rel="stylesheet">
 
-    <!-- <script src="src/common/js/state.js"></script> -->
-    <!-- <script src="src/common/js/profiler.js"></script> -->
     <script src="src/common/js/local-storage.js"></script>
     <!-- <script src="src/common/js/ui-events.js"></script> -->
     <!-- <script src="src/common/js/ui-changes.js"></script> -->
     <script src="src/common/js/dom-manipulation.js"></script>
-    <!-- <script src="src/js/ui-changes.js"></script> -->
 
     <!-- catalog of available icons here: https://ionic.io/ionicons -->
     <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> -->
@@ -22,10 +19,7 @@
 </head>
 
 <body>
-    <div class="appbar">
-        <div class="iconButton"><ion-icon name="menu-outline"></ion-icon></div>
-        <div class="iconButton"><ion-icon name="moon-outline"></ion-icon></div>
-    </div>
+    <div id="appbar"></div>
 
     <div id="apiKeyPrompt"></div>
 
@@ -39,7 +33,7 @@
     <!-- <textarea id="state"></textarea> -->
 
     <div id="icons">
-        <svg width="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z"></path> </g></svg>
+        <svg id="menuIcon" width="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z"></path> </g></svg>
 
         <svg id="sendIcon" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="20">
             <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -96,9 +90,12 @@
     <script src="src/js/state.js"></script>
     <script src="src/js/model-api.js"></script>
     <script src="src/js/analysis.js"></script>
-    
+
     <script src="src/js/steps-actions.js"></script>
     <script src="src/js/steps-render.js"></script>
+
+    <script src="src/js/appbar-actions.js"></script>
+    <script src="src/js/appbar-render.js"></script>
 
     <!-- <script src="src/js/map-actions.js"></script> -->
     <script src="src/js/map-render.js"></script>

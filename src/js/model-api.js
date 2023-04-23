@@ -9,31 +9,22 @@ Through the challenges presented in "Lorem Ipsum Adventures," you will learn to 
 The game's vibrant world will ignite your senses and inspire you to live life to the fullest.`,
 `Short answer in only one paragraph simulated here for testing purposes.`];
 
-// ChatGPT config
-// TODO: move to state and add UI advanced options to modify
-const config = {
-    role: 'user',
-    temperature: 0.7,
-    model: 'gpt-3.5-turbo',
-    completionsEndpoint: 'https://api.openai.com/v1/chat/completions',
-}
-
 const getCompletion = async ({ prompt }) => {
     if (state.config.testingMode) {
         return { choices: [{ message: { content: testingMessageContents[Math.floor(Math.random() * testingMessageContents.length)]} }] };
     }
 
     const content = prompt;
-    const response = await fetch(config.completionsEndpoint, {
+    const response = await fetch(state.config.advanced.endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${state.config.apiKey}`
         },
         body: JSON.stringify({
-            model: config.model,
-            // temperature: config.temperature,
-            messages: [{ role: config.role, content }]
+            model: state.config.advanced.model,
+            // temperature: state.config.advanced.temperature,
+            messages: [{ role: state.config.advanced.role, content }]
         })
     });
 
