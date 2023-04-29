@@ -79,18 +79,22 @@ const getResultBody = ({step}) => {
         }
 
         const actions = createElementWithAttributes({type: 'div', attributes: {class: 'actions'}});
-        const newStepBasedOnParagraph = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this paragraph.'}});
-        const newStepBasedOnParagraphMainAreas = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Generate a list of the main areas of this subject.'}});
-        const newStepBasedOnParagraphUserDefined = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this paragraph, by writing your own question or prompt.'}});
+        const newStep = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this paragraph.'}});
+        const newStepTimeline = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'List in chronological order the main events related to the topic in this paragraph.'}});
+        const newStepUserDefined = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this paragraph, by writing your own question or prompt.'}});
+        const newStepBulletPoints = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'List the main subdivisions or areas of the topic in this paragraph.'}});
 
-        newStepBasedOnParagraph.addEventListener('click', () => addChildStep({step, promptText: `${paragraph.text} ------- expand about each of the topics in the text`}));
-        newStepBasedOnParagraphMainAreas.addEventListener('click', () => addChildStep({step, promptText: `${paragraph.text} ------- using bullet points, tell me what are the main areas or subdivisions of the topic that the text talks about, and give me information about each one of them`}));
-        newStepBasedOnParagraphUserDefined.addEventListener('click', () => addChildStep({step}));
+        const promptBaseText = paragraph.text;
+        newStepUserDefined.addEventListener('click', () => addChildStep({step}));
+        newStep.addEventListener('click', () => addChildStep({step, promptAction: promptActions.expand, promptBaseText}));
+        newStepTimeline.addEventListener('click', () => addChildStep({step, promptAction: promptActions.historicalTimeline, promptBaseText}));
+        newStepBulletPoints.addEventListener('click', () => addChildStep({step, promptAction: promptActions.bulletPoints, promptBaseText}));
 
-        newStepBasedOnParagraph.appendChild(getIconSvg({id: 'continueIcon'}));
-        newStepBasedOnParagraphMainAreas.appendChild(getIconSvg({id: 'bulletsIcon'}));
-        newStepBasedOnParagraphUserDefined.appendChild(getIconSvg({id: 'messageIcon'}));
-        [newStepBasedOnParagraph, newStepBasedOnParagraphMainAreas, newStepBasedOnParagraphUserDefined].map(element => actions.appendChild(element));
+        newStep.appendChild(getIconSvg({id: 'continueIcon'}));
+        newStepTimeline.appendChild(getIconSvg({id: 'clockIcon'}));
+        newStepUserDefined.appendChild(getIconSvg({id: 'messageIcon'}));
+        newStepBulletPoints.appendChild(getIconSvg({id: 'bulletsIcon'}));
+        [newStep, newStepBulletPoints, newStepTimeline, newStepUserDefined].map(element => actions.appendChild(element));
         paragraphElement.appendChild(actions);
     })
 
@@ -104,7 +108,7 @@ const getResultFooter = ({step}) => {
     const newStepSimpleWords = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Simplify the language of this answer.'}});
 
     newStepUserDefined.addEventListener('click', () => addChildStep({step}));
-    newStepSimpleWords.addEventListener('click', () => addChildStep({step, promptText: `${step.results.paragraphs.map(p => p.text).join(' ')} ------- can you re-write this idea using simple words, as if you were explaining it to a child?`}));
+    newStepSimpleWords.addEventListener('click', () => addChildStep({step, promptAction: promptActions.simpleWords, promptBaseText: step.results.paragraphs.map(p => p.text).join(' ')}));
 
     newStepUserDefined.appendChild(getIconSvg({id: 'messageIcon'}));
     newStepSimpleWords.appendChild(getIconSvg({id: 'babyIcon'}));

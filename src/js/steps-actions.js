@@ -1,3 +1,7 @@
+const getPromptText = ({promptBaseText, promptAction}) => {
+    return `${promptActionInstructions[promptAction].before} ${promptBaseText} ${(promptActionInstructions[promptAction].after)}`;
+}
+
 const filterSteps = ({step, idToDelete}) => {
     if(!step.steps || step.steps.lenght === 0) {
         return;
@@ -21,7 +25,7 @@ const setStepToFocus = ({step}) => {
     state.ui.stepToFocusId = step.id;
 }
 
-const addChildStep = ({step, promptText}) => {
+const addChildStep = ({step, promptBaseText, promptAction}) => {
     // Don't add children while first child has no results
     if(step.steps[0] && (!step.steps[0].results.paragraphs || step.steps[0].results.paragraphs.length === 0)) {
         return;
@@ -32,8 +36,8 @@ const addChildStep = ({step, promptText}) => {
     setStepToFocus({step: newStep})
     step.steps.unshift(newStep);
 
-    if(promptText) {
-        newStep.prompt.text = promptText;
+    if(promptBaseText) {
+        newStep.prompt.text = getPromptText({promptBaseText, promptAction});
 
         generateResults({step: newStep});
     }

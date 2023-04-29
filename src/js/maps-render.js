@@ -9,8 +9,8 @@ const renderMaps = () => {
 
     maps.appendChild(newMap);
     
-    state.mapsInfo.map(mapInfo => {
-        const map = createElementWithAttributes({type: 'div', attributes: {class: 'map', innerText: mapInfo.name}});
+    state.mapsInfo.map((mapInfo, index) => {
+        const map = createElementWithAttributes({type: 'div', attributes: {class: 'map', innerText: `${index} ${mapInfo.name}`}});
 
         map.addEventListener('click', () => changeMap({id: mapInfo.id}));
 
