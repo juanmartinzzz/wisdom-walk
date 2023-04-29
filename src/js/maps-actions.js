@@ -21,7 +21,8 @@ const updateMapsInfo = () => {
         // Add map info to the list
         mapsInfo.unshift({
             id: state.id,
-            name: `${state.map.name} - map name`,
+            name: state.map.name,
+            dateCreated: Date.now(),
         })
 
     }

@@ -10,12 +10,12 @@
 
 /* palette 2 */
 :root {
-    --bg-primary: #2696D6;
-    --bg-secondary: #F9A3C7;
-    --text-primary: #FFFFFF;
-    --text-secondary: #B5BEC8;
-    --action-primary: #0079D3;
-    --action-secondary: #4A90E2;
+    --bg-primary: rgb(38, 150, 214);
+    --bg-secondary: rgb(249, 163, 199);
+    --text-primary: rgb(60, 60, 60);
+    --text-secondary: rgb(36, 74, 117);
+    --action-primary: rgb(255, 106, 168);
+    --action-secondary: rgb(0, 121, 211);
 }
 
 /* palette 3 */
@@ -48,6 +48,16 @@
     --action-secondary: rgb(135, 206, 250);
 }
 
+/* current palette */
+:root {
+    --bg-primary: rgb(38, 150, 214);
+    --bg-secondary: rgb(194, 194, 194);
+    --text-primary: rgb(60, 60, 60);
+    --text-secondary: rgb(36, 74, 117);
+    --action-primary: rgb(3, 55, 92);
+    --action-secondary: rgb(70, 70, 70);
+}
+
 
 /* Colour theme */
 body {
@@ -65,7 +75,7 @@ body {
 input,
 select,
 textarea {
-    color: var(--action-primary);
+    color: var(--text-secondary);
     /* border: 0; */
     /* border: 1px solid rgb(20,20,20); */
     /* background-color: rgb(40,44,48); */
@@ -86,8 +96,9 @@ textarea {
     background-color: var(--bg-secondary);
 }
 #maps .map {
+    font-family: sans-serif;
     color: rgb(255, 255, 255);
-    background-color: var(--action-primary);
+    background-color: var(--action-secondary);
 }
 
 /* actions */
@@ -100,15 +111,15 @@ textarea {
 
 /* step */
 .step .prompt textarea {
-    color: var(--action-primary);
+    color: var(--action-secondary);
 }
 
 svg, path, line, polyline, polygon, rect, circle, text, rect, ellipse, g {
-    fill: var(--action-secondary);
-    stroke: var(--action-secondary);
+    fill: var(--action-primary);
+    stroke: var(--action-primary);
 }
 @keyframes loading {
     0%      {border-bottom: 4px solid var(--action-primary);}
     10%     {border-bottom: 4px solid var(--action-secondary);}
-    100%    {border-bottom: 4px solid var(--action-primary);}
+    100%    {border-bottom: 4px solid var(--bg-primary);}
 }
