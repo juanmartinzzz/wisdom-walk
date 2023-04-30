@@ -66,6 +66,18 @@ const getResultHeader = ({step}) => {
     return header;
 }
 
+const getNextStepActionButton = ({step, promptAction = null, promptBaseText, iconSvgId}) => {
+    const title = promptAction && promptActionInstructions[promptAction].elementTitle;
+
+    const nextStepActionButton = createElementWithAttributes({type: 'div', attributes: {class: 'action', title}});
+    
+    nextStepActionButton.addEventListener('click', () => addChildStep({step, promptAction, promptBaseText}));
+
+    nextStepActionButton.appendChild(getIconSvg({id: iconSvgId}));
+
+    return nextStepActionButton;
+}
+
 const getResultBody = ({step}) => {
     const body = createElementWithAttributes({type: 'div', attributes: {class: 'body'}});
 
@@ -78,23 +90,16 @@ const getResultBody = ({step}) => {
             return;
         }
 
-        const actions = createElementWithAttributes({type: 'div', attributes: {class: 'actions'}});
-        const newStep = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this paragraph.'}});
-        const newStepTimeline = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'List in chronological order the main events related to the topic in this paragraph.'}});
-        const newStepUserDefined = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this paragraph, by writing your own question or prompt.'}});
-        const newStepBulletPoints = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'List the main subdivisions or areas of the topic in this paragraph.'}});
-
         const promptBaseText = paragraph.text;
-        newStepUserDefined.addEventListener('click', () => addChildStep({step}));
-        newStep.addEventListener('click', () => addChildStep({step, promptAction: promptActions.expand, promptBaseText}));
-        newStepTimeline.addEventListener('click', () => addChildStep({step, promptAction: promptActions.historicalTimeline, promptBaseText}));
-        newStepBulletPoints.addEventListener('click', () => addChildStep({step, promptAction: promptActions.bulletPoints, promptBaseText}));
 
-        newStep.appendChild(getIconSvg({id: 'continueIcon'}));
-        newStepTimeline.appendChild(getIconSvg({id: 'clockIcon'}));
-        newStepUserDefined.appendChild(getIconSvg({id: 'messageIcon'}));
-        newStepBulletPoints.appendChild(getIconSvg({id: 'bulletsIcon'}));
-        [newStep, newStepBulletPoints, newStepTimeline, newStepUserDefined].map(element => actions.appendChild(element));
+        const actions = createElementWithAttributes({type: 'div', attributes: {class: 'actions'}});      
+        const newStepUserDefined = getNextStepActionButton({step, promptAction: promptActions.userDefined, iconSvgId: iconSvgIds.messageIcon});
+        const newStep = getNextStepActionButton({step, promptAction: promptActions.expand, promptBaseText, iconSvgId: iconSvgIds.continueIcon});
+        const newStepSimpleWords = getNextStepActionButton({step, promptAction: promptActions.simpleWords, promptBaseText, iconSvgId: iconSvgIds.babyIcon});
+        const newStepTimeline = getNextStepActionButton({step, promptAction: promptActions.historicalTimeline, promptBaseText, iconSvgId: iconSvgIds.clockIcon});
+        const newStepBulletPoints = getNextStepActionButton({step, promptAction: promptActions.bulletPoints, promptBaseText, iconSvgId: iconSvgIds.bulletsIcon});
+
+        [newStep, newStepSimpleWords, newStepBulletPoints, newStepTimeline, newStepUserDefined].map(element => actions.appendChild(element));
         paragraphElement.appendChild(actions);
     })
 
@@ -102,17 +107,17 @@ const getResultBody = ({step}) => {
 }
 
 const getResultFooter = ({step}) => {
+    const promptBaseText = step.results.paragraphs.map(p => p.text).join(' ');
+
     const footer = createElementWithAttributes({type: 'div', attributes: {class: 'footer'}});
     const actions = createElementWithAttributes({type: 'div', attributes: {class: 'actions'}});
-    const newStepUserDefined = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Learn more about this topic, by writing your own question or prompt.'}});
-    const newStepSimpleWords = createElementWithAttributes({type: 'div', attributes: {class: 'action', title: 'Simplify the language of this answer.'}});
+    const newStepUserDefined = getNextStepActionButton({step, promptAction: promptActions.userDefined, iconSvgId: iconSvgIds.messageIcon});
+    const newStep = getNextStepActionButton({step, promptAction: promptActions.expand, promptBaseText, iconSvgId: iconSvgIds.continueIcon});
+    const newStepSimpleWords = getNextStepActionButton({step, promptAction: promptActions.simpleWords, promptBaseText, iconSvgId: iconSvgIds.babyIcon});
+    const newStepTimeline = getNextStepActionButton({step, promptAction: promptActions.historicalTimeline, promptBaseText, iconSvgId: iconSvgIds.clockIcon});
+    const newStepBulletPoints = getNextStepActionButton({step, promptAction: promptActions.bulletPoints, promptBaseText, iconSvgId: iconSvgIds.bulletsIcon});
 
-    newStepUserDefined.addEventListener('click', () => addChildStep({step}));
-    newStepSimpleWords.addEventListener('click', () => addChildStep({step, promptAction: promptActions.simpleWords, promptBaseText: step.results.paragraphs.map(p => p.text).join(' ')}));
-
-    newStepUserDefined.appendChild(getIconSvg({id: 'messageIcon'}));
-    newStepSimpleWords.appendChild(getIconSvg({id: 'babyIcon'}));
-    [newStepSimpleWords, newStepUserDefined].map(element => actions.appendChild(element));
+    [newStep, newStepSimpleWords, newStepBulletPoints, newStepTimeline, newStepUserDefined].map(element => actions.appendChild(element));
     footer.appendChild(actions);
 
     return footer;
