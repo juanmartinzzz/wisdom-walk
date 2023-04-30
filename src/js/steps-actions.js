@@ -75,6 +75,8 @@ const updatePromptText = ({step, target}) => {
 
 const toggleCollapseStep = ({step}) => {
     step.collapsed = !step.collapsed;
+    setStepToFocus({step});
+
     renderSteps();
 }
 
