@@ -55,6 +55,8 @@ const templateEmptyMapInfo = {
     name: null,
 }
 
+const templateEmptyMaps = [];
+
 const templateEmptyStep = {
     id: null,
     element: null,

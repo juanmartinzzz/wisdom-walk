@@ -95,11 +95,6 @@ textarea {
 #maps {
     background-color: var(--bg-secondary);
 }
-#maps .map {
-    font-family: sans-serif;
-    color: rgb(255, 255, 255);
-    background-color: var(--action-secondary);
-}
 
 /* actions */
 .actions .action:hover {
