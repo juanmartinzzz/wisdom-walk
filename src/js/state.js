@@ -17,9 +17,9 @@ const state = {
             endpoint: 'https://api.openai.com/v1/chat/completions',
         }
     })})),
+    maps: JSON.parse(getValueOrDefault({key: 'maps'})||storeAndReturn({key: 'maps', value: JSON.stringify(templateEmptyMaps)})),
     // I think steps could now be set to null here, since rendering process now retrieves steps from localStorage
     steps: JSON.parse(getValueOrDefault({key: getValueOrDefault({key: 'id'}), defaultValue: JSON.stringify([templateEmptyStep])})),
-    mapsInfo: JSON.parse(getValueOrDefault({key: 'mapsInfo'})||storeAndReturn({key: 'mapsInfo', value: JSON.stringify([{...templateEmptyMapInfo, id: getValueOrDefault({key: 'id'}), name: 'First mind map'}])})),
     ui: {
         appbar: {
             status: null,

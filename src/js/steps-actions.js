@@ -63,6 +63,11 @@ const generateResults = async ({step}) => {
 
     step.status = stepStatuses.showingResults;
 
+    // TODO: detect if the step is the initial step of the map
+    if(true || currentStepIsInitialStepOfMap) {
+        ensureMapIsSaved({id: state.id, prompt: step.prompt});
+    }
+
     renderSteps();
 }
 

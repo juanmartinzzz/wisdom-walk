@@ -102,14 +102,25 @@ a {
     height: 100vh;
     padding: 16px;
     display: flex;
+    position: fixed;
     gap: 16px;
     flex-direction: column;
 }
-#maps .map {
-    display: inline-block;
-    padding: 4px 8px;
+#maps .mapButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: sans-serif;
     cursor: pointer;
     text-align: center;
+    border-radius: 2px;
+}
+#maps .mapButton.new {
+    display: inline-block;
+    padding: 4px 8px;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--action-primary);
     border-radius: 2px;
 }
 
@@ -131,7 +142,7 @@ a {
 
 /* map */
 #map {
-    padding: 16px;
+    padding: 16px 0 0 208px;
 }
 /* #map div {
     background-color: rgba(0,0,0, 0.05);
