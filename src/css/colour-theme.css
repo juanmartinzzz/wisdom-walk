@@ -95,6 +95,12 @@ textarea {
 #maps {
     background-color: var(--bg-secondary);
 }
+#maps .mapButton {
+    border-left: 4px solid var(--bg-secondary);
+}
+#maps .mapButton.current {
+    border-left: 4px solid var(--bg-primary);
+}
 
 /* actions */
 .actions .action:hover {

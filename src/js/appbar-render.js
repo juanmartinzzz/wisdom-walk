@@ -14,7 +14,6 @@ const getFormFromJson = ({object, className}) => {
         if (typeof object[key] === "boolean") {
             input.setAttribute("type", "checkbox");
             input.checked = object[key];
-            console.log({checked: object[key]})
         } else if (typeof object[key] === "number") {
             input.setAttribute("type", "number");
         } else if (typeof object[key] === "string") {

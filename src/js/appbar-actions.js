@@ -1,5 +1,4 @@
 const changeConfig = ({target, object, key}) => {
-    console.log({key});
     let newValue = null;
 
     // Special treatment for checkboxes
@@ -23,7 +22,6 @@ const changeConfig = ({target, object, key}) => {
 
 const toggleOpenMainMenu = () => {
     state.ui.appbar.status = (state.ui.appbar.status !== appbarStatuses.showMainMenu) ? appbarStatuses.showMainMenu : null;
-    console.log({status: state.ui.appbar.status});
 
     renderAppbar();
 }

@@ -26,11 +26,9 @@ const ensureMapIsSaved = ({id, prompt}) => {
 
 const removeMap = ({id}) => {
     // If map to be removed is the current one
-    console.log({stateId: state.id, idToRemove: id});
     if(state.id === id) {
         // Change id in state for something new
         state.id = storeAndReturn({key: 'id', value: getNewMapId()});
-        console.log({stateId: state.id});
     }
 
     // Remove map from memory? Not removing results in soft-delete for the local-only version. 

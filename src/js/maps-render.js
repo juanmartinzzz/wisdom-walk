@@ -1,5 +1,7 @@
 const getMapButton = ({id, innerText}) => {
-    const mapButton = createElementWithAttributes({type: 'div', attributes: {class: 'mapButton'}});
+    const isCurrent = state.id === id;
+
+    const mapButton = createElementWithAttributes({type: 'div', attributes: {class: `mapButton ${isCurrent ? 'current' : ''}`}});
     const title = createElementWithAttributes({type: 'div', attributes: {innerText}});
     const actions = createElementWithAttributes({type: 'div'});
     const remove = createElementWithAttributes({type: 'div'});
