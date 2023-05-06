@@ -4,7 +4,7 @@ const getMapButton = ({id, innerText}) => {
     const actions = createElementWithAttributes({type: 'div'});
     const remove = createElementWithAttributes({type: 'div'});
 
-    remove.addEventListener('click', () => removeMap({id}));
+    remove.addEventListener('click', (event) => {event.stopPropagation(); removeMap({id})});
 
     remove.append(getIconSvg({id: 'removeIcon'}));
     actions.append(remove);
