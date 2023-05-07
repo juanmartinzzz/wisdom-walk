@@ -14,7 +14,6 @@ const getFormFromJson = ({object, className}) => {
         if (typeof object[key] === "boolean") {
             input.setAttribute("type", "checkbox");
             input.checked = object[key];
-            console.log({checked: object[key]})
         } else if (typeof object[key] === "number") {
             input.setAttribute("type", "number");
         } else if (typeof object[key] === "string") {
@@ -45,6 +44,10 @@ const getMainMenu = () => {
     return options;
 }
 
+const getImportButton = () => {
+
+}
+
 const renderAppbar = () => {
     const appbar = document.getElementById('appbar');
     appbar.innerHTML = '';
@@ -58,12 +61,15 @@ const renderAppbar = () => {
     const icons = createElementWithAttributes({type: 'div', attributes: {class: 'icons'}});
     const mainMenuButton = createElementWithAttributes({type: 'div'});
     const mainMenu = createElementWithAttributes({type: 'div', attributes: {class: 'mainMenu'}});
+    const importMapButton = createElementWithAttributes({type: 'div'});
     
     mainMenuButton.addEventListener('click', toggleOpenMainMenu);
+    importMapButton.addEventListener('click', importMap);
     
     mainMenu.appendChild(getMainMenu());
-    mainMenuButton.appendChild(getIconSvg({id: 'menuIcon'}));
-    [mainMenuButton].map(element => icons.appendChild(element));
+    mainMenuButton.appendChild(getIconSvg({id: 'configIcon'}));
+    importMapButton.appendChild(getIconSvg({id: 'importIcon'}));
+    [mainMenuButton, importMapButton].map(element => icons.appendChild(element));
     [icons, mainMenu].map(element => appbar.appendChild(element));
 }
 

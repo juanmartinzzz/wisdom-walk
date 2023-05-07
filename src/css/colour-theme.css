@@ -52,6 +52,7 @@
 :root {
     --bg-primary: rgb(38, 150, 214);
     --bg-secondary: rgb(194, 194, 194);
+    --bg-secondary: rgb(240, 240, 240);
     --text-primary: rgb(60, 60, 60);
     --text-secondary: rgb(36, 74, 117);
     --action-primary: rgb(30, 30, 30);
@@ -95,6 +96,12 @@ textarea {
 #maps {
     background-color: var(--bg-secondary);
 }
+#maps .mapButton {
+    border-left: 4px solid var(--bg-secondary);
+}
+#maps .mapButton.current {
+    border-left: 4px solid var(--bg-primary);
+}
 
 /* actions */
 .actions .action:hover {
@@ -109,10 +116,6 @@ textarea {
     color: var(--action-secondary);
 }
 
-svg, path, line, polyline, polygon, rect, circle, text, rect, ellipse, g {
-    fill: var(--action-primary);
-    stroke: var(--action-primary);
-}
 @keyframes loading {
     0%      {border-bottom: 4px solid var(--action-primary);}
     10%     {border-bottom: 4px solid var(--action-secondary);}
