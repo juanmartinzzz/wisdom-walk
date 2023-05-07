@@ -5,11 +5,14 @@ const getMapButton = ({id, innerText}) => {
     const title = createElementWithAttributes({type: 'div', attributes: {innerText}});
     const actions = createElementWithAttributes({type: 'div'});
     const remove = createElementWithAttributes({type: 'div'});
+    const exportAction = createElementWithAttributes({type: 'div'});
 
     remove.addEventListener('click', (event) => {event.stopPropagation(); removeMap({id})});
+    exportAction.addEventListener('click', (event) => {event.stopPropagation(); exportMap({id})});
 
     remove.append(getIconSvg({id: 'removeIcon'}));
-    actions.append(remove);
+    exportAction.append(getIconSvg({id: 'exportIcon'}));
+    [remove, exportAction].map(element => actions.append(element));
     [title, actions].map(element => mapButton.append(element));
 
     return mapButton;
