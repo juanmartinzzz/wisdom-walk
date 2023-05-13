@@ -3,9 +3,9 @@ const getMapButton = ({id, innerText}) => {
 
     const mapButton = createElementWithAttributes({type: 'div', attributes: {class: `mapButton ${isCurrent ? 'current' : ''}`}});
     const title = createElementWithAttributes({type: 'div', attributes: {innerText}});
-    const actions = createElementWithAttributes({type: 'div'});
-    const remove = createElementWithAttributes({type: 'div'});
-    const exportAction = createElementWithAttributes({type: 'div'});
+    const actions = createElementWithAttributes({type: 'div', attributes: {class: 'actions'}});
+    const remove = createElementWithAttributes({type: 'div', attributes: {class: 'action'}});
+    const exportAction = createElementWithAttributes({type: 'div', attributes: {class: 'action'}});
 
     remove.addEventListener('click', (event) => {event.stopPropagation(); removeMap({id})});
     exportAction.addEventListener('click', (event) => {event.stopPropagation(); exportMap({id})});
@@ -31,7 +31,7 @@ const renderMaps = () => {
 
     // Add a button for each map in memory
     state.maps.map((map, index) => {
-        const newMapButton = getMapButton({ id: map.id, innerText: `${index} ${map.name !== 'null' ? map.name : ''}` });
+        const newMapButton = getMapButton({ id: map.id, innerText: `${map.name !== 'null' ? map.name : index}` });
 
         newMapButton.addEventListener('click', () => changeMap({ id: map.id }));
 

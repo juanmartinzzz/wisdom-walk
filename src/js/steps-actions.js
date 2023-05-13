@@ -1,7 +1,3 @@
-const getPromptText = ({promptBaseText, promptAction}) => {
-    return `${promptActionInstructions[promptAction].before} ${promptBaseText} ${(promptActionInstructions[promptAction].after)}`;
-}
-
 const filterSteps = ({step, idToDelete}) => {
     if(!step.steps || step.steps.lenght === 0) {
         return;
@@ -31,9 +27,16 @@ const addChildStep = ({step, promptBaseText, promptAction}) => {
         return;
     }
 
+    // Deep clone template for a new Step
     const newStep = JSON.parse(JSON.stringify(templateEmptyStep));
+    
+    // Set initial step values
     newStep.id = `step-${Math.floor(Math.random() * 999999999999999)}`;
-    setStepToFocus({step: newStep})
+    newStep.depth = (step.depth + 1);
+
+    // Set app focus on the new Step
+    setStepToFocus({step: newStep});
+
     step.steps.unshift(newStep);
 
     if(promptBaseText) {
@@ -63,8 +66,9 @@ const generateResults = async ({step}) => {
 
     step.status = stepStatuses.showingResults;
 
-    // TODO: detect if the step is the initial step of the map
-    if(true || currentStepIsInitialStepOfMap) {
+    // If the step is the initial step of its map
+    const currentStepIsInitialStepOfMap = (step.depth === 0);
+    if(currentStepIsInitialStepOfMap) {
         ensureMapIsSaved({id: state.id, prompt: step.prompt});
     }
 

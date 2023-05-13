@@ -15,27 +15,27 @@ const promptActions = {
     userDefined: 'userDefined',
     simpleWords: 'simpleWords',
     bulletPoints: 'bulletPoints',
+    suggestTitle: 'suggestTitle',
     historicalTimeline: 'historicalTimeline',
 }
 
 const promptActionInstructions = {
-    [promptActions.expand]: {before: `Provide more detailed information about the main topic or topics treated in the following text
----------- 
----------- 
-`, after: ``, elementTitle: 'Get more info about this.'},
-    [promptActions.userDefined]: {before: ``, after: ``, elementTitle: 'Learn more by writing your own question or prompt.'},
-    [promptActions.bulletPoints]: {before: `Using bullet points, list the main areas or subdivisions of each one of the main topics in the following text
+    [promptActions.suggestTitle]: {before: `Provide a very short title of maximum 5 words for the following prompt
 ----------
+`, after: ``},
+    [promptActions.expand]: {before: `expand and provide detailed information about this
+---------- 
+`, after: ``, elementTitle: 'Get more detailed info about this.'},
+    [promptActions.userDefined]: {before: ``, after: ``, elementTitle: 'Learn more by writing your own question or prompt.'},
+    [promptActions.bulletPoints]: {before: `For the main topic or topics treated in the following text, list their main areas or subdivisions using bullet points
 ----------
 `, after: ``, elementTitle: 'List the main subdivisions or areas of the topic.'},
-    [promptActions.simpleWords]: {before: `Re-write the main idea or ideas in the following text using very simple words, as if explaining the meaning of the text to a child
-----------
+    [promptActions.simpleWords]: {before: `Re-write the main idea or ideas in the following text using very simple words, as if explaining them to a child
 ----------
 `, after: ``, elementTitle: 'Simplify the language of this answer.'},
-    [promptActions.historicalTimeline]: {before: `List all relevant events related to the main topic that the following text talks about, in chronological order, including dates wherever possible
+    [promptActions.historicalTimeline]: {before: `For the main topic or topics treated in the following text, list all relevant events in chronological order including dates if possible
 ----------
-----------
-`, after: ``, elementTitle: 'List in chronological order the main events related to the topic in this paragraph.'}
+`, after: ``, elementTitle: 'List in chronological order the main events related to this.'}
 }
 
 const stepStatuses = {
@@ -59,7 +59,7 @@ const templateEmptyMaps = [];
 
 const templateEmptyStep = {
     id: null,
-    element: null,
+    depth: 0,
     collapsed: false,
     status: stepStatuses.showOnlyPrompt,
     prompt: {

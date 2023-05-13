@@ -4,16 +4,13 @@ const getIconSvg = ({id}) => {
 }
 
 const getPromptTextarea = ({value}) => {
+    const maxHeightInPixels = 250
     const textarea = createElementWithAttributes({type: 'textarea', attributes: {style: `height: auto;`, innerHTML: value}});
-    // textarea.style.height = `${textarea.scrollHeight}px`;
 
-    textarea.addEventListener("input", () => {
-        textarea.style.height = "auto";
-        textarea.style.height = `${textarea.scrollHeight}px`;
+    textarea.addEventListener('input', () => {
+        textarea.style.height = 'auto';
+        textarea.style.height = `${((textarea.scrollHeight <= maxHeightInPixels) ? textarea.scrollHeight : maxHeightInPixels)}px`;
     });
-
-    // const rows = (textarea.value.split("\n").length < 10) ? textarea.value.split("\n").length : 10;
-    // textarea.setAttribute('rows', rows);
 
     return textarea;
 }

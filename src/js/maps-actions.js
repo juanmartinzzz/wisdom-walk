@@ -55,13 +55,13 @@ const exportMap = ({id}) => {
     downloadAnchorNode.remove();
 }
 
-const ensureMapIsSaved = ({id, prompt}) => {
+const ensureMapIsSaved = async ({id, prompt}) => {
     const newMaps = state.maps;
     const currentMap = newMaps.filter(map => map.id === id)[0];
     
-    // TODO: Request the model to generate a good name for the mind-map, based on the prompt
-    // const name = await getCompletion({prompt: prompt.text});
-    const name = `Mind map (ID ${Math.floor(Math.random()*9999)})`;
+    // Request the model to generate a good name for the mind-map, based on the prompt
+    const completion = await getCompletion({prompt: getPromptText({promptBaseText: prompt.text, promptAction: promptActions.suggestTitle})});
+    const name = analyzeMapNameResults({completion});
 
     if(currentMap) {
         currentMap.name = name;

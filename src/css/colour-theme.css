@@ -51,6 +51,7 @@
 /* current palette */
 :root {
     --bg-primary: rgb(38, 150, 214);
+    --bg-primary: rgb(255,255,255);
     --bg-secondary: rgb(194, 194, 194);
     --bg-secondary: rgb(240, 240, 240);
     --text-primary: rgb(60, 60, 60);
@@ -100,7 +101,7 @@ textarea {
     border-left: 4px solid var(--bg-secondary);
 }
 #maps .mapButton.current {
-    border-left: 4px solid var(--bg-primary);
+    border-left: 4px solid var(--action-primary);
 }
 
 /* actions */

@@ -111,6 +111,7 @@ a {
     align-items: center;
     justify-content: space-between;
     font-family: sans-serif;
+    font-size: 14px;
     cursor: pointer;
     text-align: center;
     border-radius: 2px;
@@ -122,6 +123,12 @@ a {
     text-align: center;
     border: 1px solid var(--action-primary);
     border-radius: 2px;
+}
+#maps .mapButton .actions .action {
+    padding: 2px 4px;
+}
+#maps .mapButton .actions .action svg {
+    width: 16px;
 }
 
 /* actions */
