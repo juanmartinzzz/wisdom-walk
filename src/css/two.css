@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Joan&family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 body {
+    /* font-family: 'Gowun Batang'; */
+    /* font-family: 'Libre Bodoni'; */
+    /* font-family: 'STIX Two Text'; */
     font-family: sans-serif;
     color: rgb(30,30,30);
 }
@@ -99,14 +102,25 @@ a {
     height: 100vh;
     padding: 16px;
     display: flex;
+    position: fixed;
     gap: 16px;
     flex-direction: column;
 }
-#maps .map {
-    display: inline-block;
-    padding: 4px 8px;
+#maps .mapButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: sans-serif;
     cursor: pointer;
     text-align: center;
+    border-radius: 2px;
+}
+#maps .mapButton.new {
+    display: inline-block;
+    padding: 4px 8px;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--action-primary);
     border-radius: 2px;
 }
 
@@ -128,7 +142,7 @@ a {
 
 /* map */
 #map {
-    padding: 16px;
+    padding: 16px 0 0 208px;
 }
 /* #map div {
     background-color: rgba(0,0,0, 0.05);
