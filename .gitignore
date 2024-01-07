@@ -1,2 +1,6 @@
+# OSs and IDEs
+.vscode
+.DS_Store
+
 # development helpers
 src/js/state-*

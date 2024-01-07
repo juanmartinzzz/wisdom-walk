@@ -1,27 +1,39 @@
-const getFormFromJson = ({object, className}) => {
+const formElements = {
+    apiKey: null,
+    appTheme: ['one', 'two'],
+    colourTheme: ['light', 'dark'],
+    testingMode: true,
+    uiStyle: uiStyles.cleanCards,
+};
+
+const getFormFromJson = ({configObject, formElements, className}) => {
     const form = createElementWithAttributes({type: 'div', attributes: {class: className}});
+    console.log({configObject});
+    
+    // if there is configuration for the form elements themselves, use that instead of the configObject itself
+    object = formElements ? formElements : configObject;
 
     Object.keys(object).map(key => {
-        if(object[key] && typeof object[key] === 'object') {
-            return;
-        }
-
         // TODO: make it smarter and create a textarea of other input types depending on the property's value
         const field = createElementWithAttributes({type: 'div', attributes: {name: key, value: object[key]}});
-        const input = createElementWithAttributes({type: 'input', attributes: {name: key, value: object[key] ? object[key] : ''}});
         const label = createElementWithAttributes({type: 'label', attributes: {for: key, innerText: key}});
 
-        if (typeof object[key] === "boolean") {
-            input.setAttribute("type", "checkbox");
-            input.checked = object[key];
-            console.log({checked: object[key]})
-        } else if (typeof object[key] === "number") {
-            input.setAttribute("type", "number");
-        } else if (typeof object[key] === "string") {
-            input.setAttribute("type", "text");
+        let input;
+        const inputTypeMap = {
+            boolean: 'checkbox',
+            number: 'number',
+            string: 'text',
+            object: 'text',
+        };
+        // Create the appropriate input type
+        if (!Array.isArray(object[key])) {
+            input = createElementWithAttributes({type: 'input', attributes: {type: inputTypeMap[typeof object[key]], name: key, value: object[key] ? object[key] : ''}});
+        } else if (Array.isArray(object[key])) {
+            input = createElementWithAttributes({type: 'select', attributes: {name: key, value: object[key] ? object[key] : ''}});
+            object[key].map(option => input.appendChild(createElementWithAttributes({type: 'option', attributes: {value: option, innerText: option}})));
         }
 
-        input.addEventListener('change', ({target}) => changeConfig({target, object, key}));
+        input.addEventListener('change', ({target}) => changeConfig({target, object: configObject, key}));
 
         [label, input].map(element => field.appendChild(element));
         form.appendChild(field);
@@ -37,8 +49,8 @@ const getMainMenu = () => {
     const advancedTitle = createElementWithAttributes({type: 'div', attributes: {innerText: 'Advanced'}});
     const advanced = createElementWithAttributes({type: 'div'});
 
-    normal.appendChild(getFormFromJson({object: state.config, className: 'fields'}));
-    advanced.appendChild(getFormFromJson({object: state.config.advanced, className: 'fields'}));
+    normal.appendChild(getFormFromJson({configObject: state.config, formElements: formElements, className: 'fields'}));
+    advanced.appendChild(getFormFromJson({configObject: state.config.advanced, className: 'fields'}));
 
     [normal, advancedSpacer, advancedTitle, advanced].map(element => options.appendChild(element));
 

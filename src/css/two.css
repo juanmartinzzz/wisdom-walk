@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Joan&family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+body {
+    font-family: sans-serif;
+    color: rgb(30,30,30);
+}
+
+/* links */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* api key prompt */
+#apiKeyPrompt {
+    padding: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    box-shadow: 
+        0 0 6px rgba(0,0,0, 0.05),
+        0 0 10px rgba(0,0,0, 0.05),
+        0 0 14px rgba(0,0,0, 0.05);
+}
+#apiKeyPrompt .typography {
+    font-family: 'Gowun Batang';
+    text-transform: uppercase;
+    display: inline-block;
+}
+#apiKeyPrompt #instructions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+#apiKeyPrompt a {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+#apiKeyPrompt input {
+    width: 32em;
+    padding: 8px 0;
+    font-family: monospace;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0, 0.1);
+    box-shadow: 
+        0 0 2px rgba(0,0,0, 0.1), 
+        0 0 4px rgba(0,0,0, 0.1), 
+        0 0 6px rgba(0,0,0, 0.1);
+}
+
+/* appbar */
+#appbar {
+    width: 100%;
+    min-height: 45px;
+    position: fixed;
+    z-index: 999;
+}
+#appbar .icons {
+    height: 45px;
+    padding: 0 16px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+#appbar .mainMenu {
+    display: none;
+    margin: 0 0 16px 0;
+    padding: 16px;
+    background-color: rgb(255,255,255);
+}
+#appbar.showMainMenu .mainMenu {
+    display: inherit;
+}
+#appbar .mainMenu .fields {
+    display: flex;
+    /* flex-direction: column; */
+    gap: 32px;
+}
+#appbar .mainMenu .fields label {
+    font-family: monospace;
+}
+
+/* work area */
+#workArea {
+    display: flex;
+    padding-top: 45px;
+}
+
+/* maps */
+#maps {
+    min-width: 160px;
+    max-width: 160px;
+    height: 100vh;
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+}
+#maps .map {
+    display: inline-block;
+    padding: 4px 8px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 2px;
+}
+
+/* actions */
+/* I'm not actually sure actions should be styled globally */
+.actions .action {
+    padding: 4px 8px;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    height: fit-content;
+}
+
+/* icons */
+#icons {
+    display: none;
+}
+
+/* map */
+#map {
+    padding: 16px;
+}
+/* #map div {
+    background-color: rgba(0,0,0, 0.05);
+} */
+
+/* double */
+.double {
+    display: flex;
+    gap: 32px;
+    padding-bottom: 64px;
+}
+
+/* lane */
+/* .lane {
+} */
+.lane .search {
+    display: flex;
+    /* justify-content: center; */
+    padding: 0 0 16px 0;
+}
+.lane .search > .actions {
+    display: flex;
+    gap: 16px;
+}
+
+/* step */
+.step {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.step.collapsed {
+    width: inherit;
+}
+.step.collapsed .results .header {
+    padding-bottom: 16px;
+}
+.step.collapsed .prompt,
+.step.collapsed .results .body,
+.step.collapsed .results .footer {
+    display: none;
+}
+.step.loadingResults .results {
+    animation: loading 2s infinite;
+}
+.step.loadingResults .results .header,
+.step.loadingResults .results .footer {
+    display: none;
+}
+.step.showOnlyPrompt .results .body, 
+.step.showOnlyPrompt .results .footer {
+    display: none;
+}
+.step.showOnlyPrompt .results .prompt {
+    padding: 16px;
+}
+.step .results .prompt {
+    padding: 16px 16px 0 16px;
+    gap: 16px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+.step .prompt textarea {
+    width: 100%;
+    min-height: 1.3em;
+    font-size: 14px;
+    color: rgba(0, 119, 255, 1);
+    box-sizing: border-box;
+    border: 0;
+    outline: none;
+}
+.step .prompt svg {
+    padding: 0 8px;
+    cursor: pointer;
+}
+.step .results {
+    border-radius: 2px;
+    box-shadow: 
+        0 0 6px rgba(0,0,0, 0.05),
+        4px 4px 8px rgba(0,0,0, 0.05);
+}
+.step .results .header {
+    padding: 16px 16px 0 16px;
+    display: flex;
+    gap: 16px;
+    justify-content: right;
+}
+.step .results .title {
+    display: none;
+    font-size: 22px;
+}
+.step .results .header > .actions {
+    display: flex;
+}
+.step .results .header > .actions .action {
+    cursor: pointer;
+}
+.step .results .body {
+    padding: 16px;
+}
+.step .results .body .paragraph {
+    padding: 4px 0;
+    font-size: 18px;
+    white-space: pre-wrap;
+    border-radius: 4px;
+}
+.step .results .body .paragraph > .actions {
+    display: none;
+}
+.step .results .body .paragraph:hover > .actions {
+    margin: 8px 0;
+    display: flex;
+    justify-content: center;
+}
+.step .results .footer {
+    padding: 0 16px 16px 16px;
+    justify-content: center;
+}
+.step .results .footer > .actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0,0,0, 0.15);
+}
+
+/* hidden */
+.hidden {
+    display: none !important;
+}

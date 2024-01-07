@@ -7,7 +7,8 @@ const state = {
     id: getValueOrDefault({key: 'id'})||storeAndReturn({key: 'id', value: `map-${Math.floor(Math.random()*99999999999999)}`}),
     config: JSON.parse(getValueOrDefault({key: 'config', defaultValue: JSON.stringify({
         apiKey: null,
-        theme: 'light',
+        appTheme: 'one',
+        colourTheme: 'light',
         testingMode: true,
         uiStyle: uiStyles.cleanCards,
         advanced: {
