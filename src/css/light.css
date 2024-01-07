@@ -1,0 +1,74 @@
+/* palette 5 */
+:root {
+    --bg-primary: rgb(255, 218, 185);
+    --bg-secondary: rgb(230, 230, 250);
+    --text-primary: rgb(0, 0, 0);
+    --text-secondary: rgb(128, 128, 128);
+    --action-primary: rgb(255, 160, 122);
+    --action-secondary: rgb(135, 206, 250);
+}
+
+
+/* Colour theme */
+body {
+    color: var(--text-primary);
+    background-color: rgb(255, 255, 255);
+}
+#appbar {
+    background-color: var(--bg-primary);
+    box-shadow: 
+        0 0 4px rgba(0, 0, 0, 0.1),
+        0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form elements */
+input,
+select,
+textarea {
+    color: var(--action-primary);
+    /* border: 0; */
+    /* border: 1px solid rgb(20,20,20); */
+    /* background-color: rgb(40,44,48); */
+}
+
+ /* api key prompt */
+#apiKeyPrompt a {
+    color: rgb(255,255,255);
+    background-color: var(--action-secondary);
+}
+#apiKeyPrompt svg, #apiKeyPrompt path, #apiKeyPrompt line, #apiKeyPrompt polyline, #apiKeyPrompt polygon, #apiKeyPrompt rect, #apiKeyPrompt circle, #apiKeyPrompt text, #apiKeyPrompt rect, #apiKeyPrompt ellipse, #apiKeyPrompt g {
+    stroke: rgb(255,255,255);
+    fill: rgb(255,255,255);
+}
+
+/* maps */
+#maps {
+    background-color: var(--bg-secondary);
+}
+#maps .map {
+    color: rgb(255, 255, 255);
+    background-color: var(--action-primary);
+}
+
+/* actions */
+.actions .action:hover {
+    background-color: rgba(0,0,0, 0.1);
+}
+.actions .action:active {
+    background-color: rgba(0,0,0, 0.2);
+}
+
+/* step */
+.step .prompt textarea {
+    color: var(--action-primary);
+}
+
+svg, path, line, polyline, polygon, rect, circle, text, rect, ellipse, g {
+    fill: var(--action-secondary);
+    stroke: var(--action-secondary);
+}
+@keyframes loading {
+    0%      {border-bottom: 4px solid var(--action-primary);}
+    10%     {border-bottom: 4px solid var(--action-secondary);}
+    100%    {border-bottom: 4px solid var(--action-primary);}
+}
